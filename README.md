@@ -1,98 +1,187 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Crypto Portfolio Tracker API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A professional-grade cryptocurrency portfolio tracking system built with NestJS, featuring real-time price updates, comprehensive analytics, and secure authentication.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Features
 
-## Description
+- **User Authentication & Authorization**: JWT-based authentication with refresh tokens
+- **Portfolio Management**: Create and manage multiple cryptocurrency portfolios
+- **Real-time Price Updates**: WebSocket integration for live price tracking
+- **Transaction Tracking**: Record buy/sell transactions with profit/loss calculations
+- **Performance Analytics**: Historical performance tracking and portfolio analytics
+- **Price Alerts**: Set custom price alerts for cryptocurrencies
+- **Rate Limiting**: Built-in request throttling for API protection
+- **Caching**: Redis-based caching for optimized performance
+- **API Documentation**: Auto-generated Swagger documentation
+- **Error Handling**: Comprehensive error handling and logging
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📋 Prerequisites
 
-## Project setup
+- Node.js 18+ 
+- PostgreSQL 14+
+- Redis 7+
+- Docker & Docker Compose (optional)
 
-```bash
-$ npm install
-```
+## 🛠️ Installation
 
-## Compile and run the project
+### Using Docker (Recommended)
 
 ```bash
-# development
-$ npm run start
+# Clone the repository
+git clone https://github.com/ayevbeosa/crypto-portfolio-tracker
+cd crypto-portfolio-tracker
 
-# watch mode
-$ npm run start:dev
+# Copy environment file
+cp .env.example .env
 
-# production mode
-$ npm run start:prod
+# Start services with Docker Compose
+docker-compose up -d
 ```
 
-## Run tests
+### Manual Installation
 
 ```bash
-# unit tests
-$ npm run test
+# Install dependencies
+npm install
 
-# e2e tests
-$ npm run test:e2e
+# Copy environment file
+cp .env.example .env
 
-# test coverage
-$ npm run test:cov
+# Start PostgreSQL and Redis (if not using Docker)
+# Update .env with your database credentials
+
+# Run migrations
+npm run migration:run
+
+# Start the application
+npm run start:dev
 ```
 
-## Deployment
+## 📚 API Documentation
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Once the application is running, visit:
+- Swagger UI: `http://localhost:3000/api/docs`
+- API: `http://localhost:3000/api/v1`
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🏗️ Project Structure
+
+```
+src/
+├── config/              # Configuration files
+├── common/              # Shared utilities, decorators, guards
+│   ├── decorators/
+│   ├── guards/
+│   ├── interceptors/
+│   ├── filters/
+│   └── pipes/
+├── modules/
+│   ├── auth/           # Authentication & authorization
+│   ├── users/          # User management
+│   ├── portfolios/     # Portfolio CRUD operations
+│   ├── transactions/   # Transaction management
+│   ├── crypto/         # Cryptocurrency data & prices
+│   ├── alerts/         # Price alerts
+│   ├── analytics/      # Portfolio analytics
+│   └── websocket/      # Real-time updates
+├── database/
+│   ├── entities/       # TypeORM entities
+│   └── migrations/     # Database migrations
+└── main.ts             # Application entry point
+```
+
+## 🔑 Environment Variables
+
+See `.env.example` for all required environment variables.
+
+## 🧪 Testing
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Unit tests
+npm run test
+
+# E2E tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📦 Available Scripts
 
-## Resources
+- `npm run start:dev` - Start development server
+- `npm run start:prod` - Start production server
+- `npm run build` - Build for production
+- `npm run lint` - Lint code
+- `npm run format` - Format code
+- `npm run migration:generate` - Generate new migration
+- `npm run migration:run` - Run migrations
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🔐 Authentication Flow
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+1. Register: `POST /api/v1/auth/register`
+2. Login: `POST /api/v1/auth/login` (returns access & refresh tokens)
+3. Use access token in Authorization header: `Bearer <token>`
+4. Refresh token: `POST /api/v1/auth/refresh`
 
-## Support
+## 📊 Key Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Authentication
+- `POST /api/v1/auth/register` - Register new user
+- `POST /api/v1/auth/login` - Login user
+- `POST /api/v1/auth/refresh` - Refresh access token
+- `POST /api/v1/auth/logout` - Logout user
 
-## Stay in touch
+### Portfolios
+- `GET /api/v1/portfolios` - Get all user portfolios
+- `POST /api/v1/portfolios` - Create new portfolio
+- `GET /api/v1/portfolios/:id` - Get portfolio details
+- `PATCH /api/v1/portfolios/:id` - Update portfolio
+- `DELETE /api/v1/portfolios/:id` - Delete portfolio
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Transactions
+- `POST /api/v1/transactions` - Add transaction
+- `GET /api/v1/transactions` - Get all transactions
+- `GET /api/v1/transactions/:id` - Get transaction details
 
-## License
+### Crypto Prices
+- `GET /api/v1/crypto/prices` - Get current prices
+- `GET /api/v1/crypto/:symbol` - Get crypto details
+- `GET /api/v1/crypto/:symbol/history` - Get price history
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Analytics
+- `GET /api/v1/analytics/portfolio/:id` - Get portfolio analytics
+- `GET /api/v1/analytics/performance/:id` - Get performance metrics
+
+## 🌐 WebSocket Events
+
+Connect to `ws://localhost:3001`
+
+### Subscribe to price updates:
+```javascript
+socket.emit('subscribe', { symbols: ['BTC', 'ETH'] });
+```
+
+### Receive price updates:
+```javascript
+socket.on('price-update', (data) => {
+  console.log(data); // { symbol: 'BTC', price: 45000, change24h: 2.5 }
+});
+```
+
+## 🚀 Deployment
+
+The application is containerized and ready for deployment to any platform supporting Docker:
+
+- AWS ECS/EKS
+- Google Cloud Run
+- Azure Container Instances
+- Heroku
+- DigitalOcean App Platform
+
+## 📝 License
+
+MIT
+
+## 👨‍💻 Author
+
+Your Name - [Your Email]
