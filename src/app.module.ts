@@ -24,6 +24,7 @@ import { HealthModule } from './modules/health/health.module';
 import { PortfoliosService } from './modules/portfolios/portfolios.service';
 import { PortfoliosModule } from './modules/portfolios/portfolios.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
+import { CryptoModule } from './modules/crypto/crypto.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { TransactionsModule } from './modules/transactions/transactions.module';
     HealthModule,
     PortfoliosModule,
     TransactionsModule,
+    CryptoModule,
   ],
   providers: [
     // Global Guards
