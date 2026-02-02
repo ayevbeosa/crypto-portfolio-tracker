@@ -6,8 +6,16 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 export class CryptoPriceSchedulerService {
   private readonly logger = new Logger(CryptoPriceSchedulerService.name);
   private isUpdating = false;
+  private webSocketService: any;
 
   constructor(private readonly cryptoService: CryptoService) {}
+
+  /**
+   * Set WebSocket service (to avoid circular dependency)
+   */
+  setWebSocketService(webSocketService: any) {
+    this.webSocketService = webSocketService;
+  }
 
   /**
    * Update prices every 5 minutes
@@ -25,6 +33,12 @@ export class CryptoPriceSchedulerService {
       this.logger.log('Starting scheduled price update...');
       await this.cryptoService.updatePrices();
       this.logger.log('Scheduled price update completed successfully');
+
+      // Broadcast updates via WebSocket
+      if (this.webSocketService) {
+        await this.webSocketService.broadcastAllPrices();
+        this.logger.log('Broadcasted price updates to WebSocket clients');
+      }
     } catch (error) {
       this.logger.error('Scheduled price update failed', error.stack);
     } finally {
@@ -63,5 +77,14 @@ export class CryptoPriceSchedulerService {
   async triggerUpdate(symbols?: string[]): Promise<void> {
     this.logger.log('Manual price update triggered');
     await this.cryptoService.updatePrices(symbols);
+
+    // Broadcast updates
+    if (this.webSocketService) {
+      if (symbols && symbols.length > 0) {
+        await this.webSocketService.broadcastMultiplePrices(symbols);
+      } else {
+        await this.webSocketService.broadcastAllPrices();
+      }
+    }
   }
 }

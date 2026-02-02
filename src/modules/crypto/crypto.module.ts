@@ -15,6 +15,6 @@ import { HttpModule } from '@nestjs/axios';
   ],
   controllers: [CryptoController],
   providers: [CryptoService, CryptoPriceSchedulerService, CoinGeckoService],
-  exports: [CryptoService, CoinGeckoService],
+  exports: [CryptoService, CoinGeckoService, CryptoPriceSchedulerService],
 })
 export class CryptoModule {}

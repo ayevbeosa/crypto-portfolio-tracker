@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -21,10 +21,10 @@ import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { HealthModule } from './modules/health/health.module';
-import { PortfoliosService } from './modules/portfolios/portfolios.service';
 import { PortfoliosModule } from './modules/portfolios/portfolios.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 import { CryptoModule } from './modules/crypto/crypto.module';
+import { WebsocketModule } from './modules/websocket/websocket.module';
 
 @Module({
   imports: [
@@ -66,6 +66,7 @@ import { CryptoModule } from './modules/crypto/crypto.module';
     PortfoliosModule,
     TransactionsModule,
     CryptoModule,
+    WebsocketModule,
   ],
   providers: [
     // Global Guards
@@ -93,4 +94,16 @@ import { CryptoModule } from './modules/crypto/crypto.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    private readonly cryptoPriceScheduler: any, // CryptoPriceScheduler
+    private readonly webSocketService: any, // WebSocketService
+  ) {}
+
+  onModuleInit() {
+    // Wire WebSocket service to crypto price scheduler to avoid circular dependency
+    if (this.cryptoPriceScheduler && this.webSocketService) {
+      this.cryptoPriceScheduler.setWebSocketService(this.webSocketService);
+    }
+  }
+}
