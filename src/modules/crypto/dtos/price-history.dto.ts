@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ProductHistoryDto {
+export class PriceHistoryDto {
   @ApiProperty({ example: '2024-01-29T10:30:00.000Z' })
   timestamp: Date;
 

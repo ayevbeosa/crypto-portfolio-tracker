@@ -43,13 +43,13 @@ export class CryptoPriceDto {
   ath: number;
 
   @ApiProperty({ example: '2021-11-10T14:24:11.849Z' })
-  athDate: Date;
+  athDate: Date | null;
 
   @ApiProperty({ example: 67.81 })
   atl: number;
 
   @ApiProperty({ example: '2013-07-06T00:00:00.000Z' })
-  atlDate: Date;
+  atlDate: Date | null;
 
   @ApiProperty({ example: '2024-01-29T10:30:00.000Z' })
   lastUpdated: Date;

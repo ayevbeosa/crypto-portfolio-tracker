@@ -59,13 +59,13 @@ export class Cryptocurrency {
   ath: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  athDate: Date;
+  athDate: Date | null;
 
   @Column({ type: 'decimal', precision: 20, scale: 8, nullable: true })
   atl: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  atlDate: Date;
+  atlDate: Date | null;
 
   @Column({ type: 'timestamp', nullable: true })
   lastUpdated: Date;
