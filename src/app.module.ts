@@ -25,6 +25,10 @@ import { PortfoliosModule } from './modules/portfolios/portfolios.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 import { CryptoModule } from './modules/crypto/crypto.module';
 import { WebsocketModule } from './modules/websocket/websocket.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { CryptoPriceSchedulerService } from './modules/crypto/crypto-price-scheduler.service';
+import { WebSocketService } from './modules/websocket/websocket.service';
 
 @Module({
   imports: [
@@ -33,11 +37,11 @@ import { WebsocketModule } from './modules/websocket/websocket.module';
       isGlobal: true,
       envFilePath: '.env',
       load: [
-        databaseConfig,
-        redisConfig,
-        jwtConfig,
         appConfig,
         coinGeckoConfig,
+        databaseConfig,
+        jwtConfig,
+        redisConfig,
         throttleConfig,
       ],
     }),
@@ -57,6 +61,10 @@ import { WebsocketModule } from './modules/websocket/websocket.module';
           limit: parseInt(process.env.THROTTLE_LIMIT!, 10) || 100,
         },
       ],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api/{*test}'],
     }),
     ScheduleModule.forRoot(),
     DatabaseModule,
@@ -96,8 +104,8 @@ import { WebsocketModule } from './modules/websocket/websocket.module';
 })
 export class AppModule implements OnModuleInit {
   constructor(
-    private readonly cryptoPriceScheduler: any, // CryptoPriceScheduler
-    private readonly webSocketService: any, // WebSocketService
+    private readonly cryptoPriceScheduler: CryptoPriceSchedulerService,
+    private readonly webSocketService: WebSocketService,
   ) {}
 
   onModuleInit() {
