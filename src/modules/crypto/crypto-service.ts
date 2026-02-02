@@ -110,7 +110,7 @@ export class CryptoService {
 
         if (crypto) {
           // Update cryptocurrency data
-          crypto.currentPrice = data.current_price;
+          crypto.currentPrice = data.current_price || 0;
           crypto.marketCap = data.market_cap?.toString() || '0';
           crypto.marketCapRank = data.market_cap_rank;
           crypto.totalVolume = data.total_volume?.toString() || '0';
