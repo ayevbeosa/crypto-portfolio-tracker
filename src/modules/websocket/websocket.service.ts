@@ -93,6 +93,33 @@ export class WebSocketService {
   }
 
   /**
+   * Send alert notification to specific user
+   */
+  async sendAlertNotification(userId: string, alertData: any) {
+    const userClients = Array.from(
+      this.priceGateway['connectedClients'].values(),
+    ).filter((client: any) => client.userId === userId);
+
+    if (userClients.length === 0) {
+      this.logger.debug(`No connected clients for user ${userId}`);
+      return;
+    }
+
+    const notification = {
+      ...alertData,
+      timestamp: new Date(),
+    };
+
+    userClients.forEach((client: any) => {
+      client.emit('alert-notification', notification);
+    });
+
+    this.logger.log(
+      `Sent alert notification to user ${userId} (${userClients.length} clients)`,
+    );
+  }
+
+  /**
    * Get WebSocket statistics
    */
   getStats() {

@@ -29,6 +29,8 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { CryptoPriceSchedulerService } from './modules/crypto/crypto-price-scheduler.service';
 import { WebSocketService } from './modules/websocket/websocket.service';
+import { AlertsModule } from './modules/alerts/alerts.module';
+import { AlertsMonitorService } from './modules/alerts/alerts-monitor.service';
 
 @Module({
   imports: [
@@ -75,6 +77,7 @@ import { WebSocketService } from './modules/websocket/websocket.service';
     TransactionsModule,
     CryptoModule,
     WebsocketModule,
+    AlertsModule,
   ],
   providers: [
     // Global Guards
@@ -106,12 +109,18 @@ export class AppModule implements OnModuleInit {
   constructor(
     private readonly cryptoPriceScheduler: CryptoPriceSchedulerService,
     private readonly webSocketService: WebSocketService,
+    private readonly alertsMonitorService: AlertsMonitorService,
   ) {}
 
   onModuleInit() {
     // Wire WebSocket service to crypto price scheduler to avoid circular dependency
     if (this.cryptoPriceScheduler && this.webSocketService) {
       this.cryptoPriceScheduler.setWebSocketService(this.webSocketService);
+    }
+
+    // Wire WebSocket service to alerts monitor
+    if (this.alertsMonitorService && this.webSocketService) {
+      this.alertsMonitorService.setWebSocketService(this.webSocketService);
     }
   }
 }
