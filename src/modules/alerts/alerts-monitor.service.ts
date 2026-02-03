@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { forwardRef, Inject, Logger } from '@nestjs/common';
 import { AlertsService } from './alerts.service';
 import { WebSocketService } from '../websocket/websocket.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -8,7 +8,10 @@ export class AlertsMonitorService {
   private isChecking = false;
   private webSocketService: WebSocketService;
 
-  constructor(private readonly alertsService: AlertsService) {}
+  constructor(
+    @Inject(forwardRef(() => AlertsService))
+    private readonly alertsService: AlertsService,
+  ) {}
 
   /**
    * Set WebSocket service (to avoid circular dependency)
@@ -31,6 +34,10 @@ export class AlertsMonitorService {
 
     try {
       this.logger.debug('Checking all active alerts...');
+      if (!this.alertsService) {
+        this.logger.error('AlertsService not available');
+        return;
+      }
       const triggeredAlerts = await this.alertsService.checkAllAlerts();
 
       if (triggeredAlerts.length > 0) {
