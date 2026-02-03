@@ -18,7 +18,7 @@ export class RoiSummaryDto {
   annualisedReturn: number;
 
   @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
-  firstTransactionDate: Date;
+  firstTransactionDate: Date | null;
 
   @ApiProperty({ type: [RoiDataPointDto] })
   dataPoints: RoiDataPointDto[];

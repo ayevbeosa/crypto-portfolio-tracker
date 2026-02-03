@@ -31,6 +31,7 @@ import { CryptoPriceSchedulerService } from './modules/crypto/crypto-price-sched
 import { WebSocketService } from './modules/websocket/websocket.service';
 import { AlertsModule } from './modules/alerts/alerts.module';
 import { AlertsMonitorService } from './modules/alerts/alerts-monitor.service';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { AlertsMonitorService } from './modules/alerts/alerts-monitor.service';
     CryptoModule,
     WebsocketModule,
     AlertsModule,
+    AnalyticsModule,
   ],
   providers: [
     // Global Guards
