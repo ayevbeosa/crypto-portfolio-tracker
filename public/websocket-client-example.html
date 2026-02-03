@@ -267,6 +267,12 @@
         socket.on('pong', (data) => {
           log('Pong received', data);
         });
+
+        // Alert notifications
+        socket.on('alert-notification', (data) => {
+          log(`🔔 ALERT TRIGGERED: ${data.message}`, data);
+          showAlertNotification(data);
+        });
       }
 
       function disconnect() {
@@ -317,6 +323,42 @@
 
         socket.emit('unsubscribe', { symbols });
         log('Unsubscribing from: ' + symbols.join(', '));
+      }
+
+      function showAlertNotification(data) {
+        // Create notification banner
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                max-width: 400px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+
+        notification.innerHTML = `
+                <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+                    🔔 Price Alert Triggered!
+                </div>
+                <div style="font-size: 14px;">
+                    <strong>${data.symbol}</strong>: $${data.currentPrice.toFixed(2)}<br>
+                    ${data.message}
+                </div>
+            `;
+
+        document.body.appendChild(notification);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease-out';
+          setTimeout(() => notification.remove(), 300);
+        }, 5000);
       }
 
       // Auto-connect on page load
