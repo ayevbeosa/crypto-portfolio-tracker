@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   Index,
+  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Portfolio } from './portfolio.entity';
 import { Alert } from './alert.entity';
+import { NotificationPreferences } from './notification-preferences.entity';
 
 @Entity('users')
 export class User {
@@ -56,4 +58,9 @@ export class User {
     cascade: true,
   })
   alerts: Alert[];
+
+  @OneToOne(() => NotificationPreferences, (prefs) => prefs.user, {
+    cascade: true,
+  })
+  notificationPreferences: NotificationPreferences;
 }
