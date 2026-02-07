@@ -9,6 +9,7 @@ import {
   coinGeckoConfig,
   databaseConfig,
   jwtConfig,
+  notificationsConfig,
   redisConfig,
   throttleConfig,
 } from './config/configuration';
@@ -32,6 +33,7 @@ import { WebSocketService } from './modules/websocket/websocket.service';
 import { AlertsModule } from './modules/alerts/alerts.module';
 import { AlertsMonitorService } from './modules/alerts/alerts-monitor.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -46,6 +48,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
         jwtConfig,
         redisConfig,
         throttleConfig,
+        notificationsConfig,
       ],
     }),
     CacheModule.registerAsync({
@@ -80,6 +83,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     WebsocketModule,
     AlertsModule,
     AnalyticsModule,
+    NotificationsModule,
   ],
   providers: [
     // Global Guards

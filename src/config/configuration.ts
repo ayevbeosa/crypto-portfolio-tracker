@@ -37,3 +37,27 @@ export const throttleConfig = registerAs('throttle', () => ({
   ttl: parseInt(process.env.THROTTLE_TTL ?? '60', 10),
   limit: parseInt(process.env.THROTTLE_LIMIT ?? '100', 10),
 }));
+
+export const notificationsConfig = registerAs('notifications', () => ({
+  email: {
+    enabled: process.env.EMAIL_ENABLED === 'true' || true,
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT ?? '587', 10) || 587,
+    secure: process.env.SMTP_SECURE === 'true' || false,
+    user: process.env.SMTP_USER,
+    password: process.env.SMTP_PASSWORD,
+    from:
+      process.env.SMTP_FROM ||
+      '"Crypto Portfolio Tracker" <noreply@cryptoportfolio.com>',
+  },
+  sms: {
+    enabled: process.env.SMS_ENABLED === 'true' || false,
+    accountSid: process.env.TWILIO_ACCOUNT_SID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
+    fromNumber: process.env.TWILIO_FROM_NUMBER,
+  },
+  push: {
+    enabled: process.env.PUSH_ENABLED === 'true' || false,
+    firebaseServiceAccount: process.env.FIREBASE_SERVICE_ACCOUNT,
+  },
+}));

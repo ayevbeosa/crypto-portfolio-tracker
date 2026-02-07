@@ -7,12 +7,14 @@ import { Cryptocurrency } from '@/database/entities/cryptocurrency.entity';
 import { CryptoModule } from '../crypto/crypto.module';
 import { WebsocketModule } from '../websocket/websocket.module';
 import { AlertsMonitorService } from './alerts-monitor.service';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Alert, Cryptocurrency]),
     CryptoModule,
     forwardRef(() => WebsocketModule),
+    NotificationsModule,
   ],
   controllers: [AlertsController],
   providers: [AlertsService, AlertsMonitorService],

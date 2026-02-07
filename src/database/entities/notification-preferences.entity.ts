@@ -9,6 +9,13 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 
+export enum NotificationChannel {
+  EMAIL = 'EMAIL',
+  SMS = 'SMS',
+  PUSH = 'PUSH',
+  WEBSOCKET = 'WEBSOCKET',
+}
+
 @Entity('notification_preferences')
 export class NotificationPreferences {
   @PrimaryGeneratedColumn('uuid')

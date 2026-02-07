@@ -2,6 +2,7 @@ import { forwardRef, Inject, Logger } from '@nestjs/common';
 import { AlertsService } from './alerts.service';
 import { WebSocketService } from '../websocket/websocket.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export class AlertsMonitorService {
   private readonly logger = new Logger(AlertsMonitorService.name);
@@ -11,6 +12,7 @@ export class AlertsMonitorService {
   constructor(
     @Inject(forwardRef(() => AlertsService))
     private readonly alertsService: AlertsService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   /**
@@ -111,10 +113,27 @@ export class AlertsMonitorService {
       );
 
       this.logger.log(
-        `Notification sent to user ${alert.userId} for ${alert.cryptocurrency.symbol}`,
+        `WebSocket notification sent to user ${alert.userId} for ${alert.cryptocurrency.symbol}`,
       );
     } catch (error) {
-      this.logger.error('Failed to send alert notification', error.stack);
+      this.logger.error('Failed to send WebSocket notification', error.stack);
+    }
+
+    // Multi-channel notifications (email, SMS, push)
+    try {
+      await this.notificationsService.sendPriceAlert({
+        userId: alert.userId,
+        symbol: alert.cryptocurrency.symbol,
+        condition: alert.condition,
+        targetPrice: parseFloat(alert.targetPrice.toString()),
+        currentPrice: parseFloat(alert.cryptocurrency.currentPrice.toString()),
+        message: alert.message,
+      });
+    } catch (error) {
+      this.logger.error(
+        'Failed to send multi-channel notifications',
+        error.stack,
+      );
     }
   }
 
