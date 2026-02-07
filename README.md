@@ -1,34 +1,131 @@
-# Crypto Portfolio Tracker API
+# 🚀 Crypto Portfolio Tracker API
 
-A professional-grade cryptocurrency portfolio tracking system built with NestJS, featuring real-time price updates, comprehensive analytics, and secure authentication.
+A professional-grade cryptocurrency portfolio tracking system built with NestJS, featuring real-time price updates, multi-channel notifications, comprehensive analytics, and secure authentication.
 
-## 🚀 Features
+[![NestJS](https://img.shields.io/badge/NestJS-v10-red)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5-blue)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-blue)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-7+-red)](https://redis.io/)
 
-- **User Authentication & Authorization**: JWT-based authentication with refresh tokens
-- **Portfolio Management**: Create and manage multiple cryptocurrency portfolios
-- **Real-time Price Updates**: WebSocket integration for live price tracking
-- **Transaction Tracking**: Record buy/sell transactions with profit/loss calculations
-- **Performance Analytics**: Historical performance tracking and portfolio analytics
-- **Price Alerts**: Set custom price alerts for cryptocurrencies
-- **Rate Limiting**: Built-in request throttling for API protection
-- **Caching**: Redis-based caching for optimized performance
-- **API Documentation**: Auto-generated Swagger documentation
-- **Error Handling**: Comprehensive error handling and logging
+## ✨ Features
+
+### 🔐 Authentication & Security
+
+- ✅ JWT-based authentication with **access + refresh tokens**
+- ✅ Secure password hashing with bcrypt
+- ✅ Rate limiting (100 req/min per IP)
+- ✅ Helmet security headers
+- ✅ CORS configuration
+- ✅ Request validation with class-validator
+
+### 💼 Portfolio Management
+
+- ✅ Create and manage **multiple portfolios**
+- ✅ Track holdings across different cryptocurrencies
+- ✅ Automatic portfolio value calculations
+- ✅ Real-time profit/loss tracking
+- ✅ Portfolio summaries with ROI metrics
+
+### 💰 Transaction Tracking
+
+- ✅ Record **BUY/SELL** transactions
+- ✅ Automatic holding updates on transaction
+- ✅ Fee tracking and calculation
+- ✅ Historical transaction records
+- ✅ Profit/loss per transaction
+
+### 📊 Cryptocurrency Data
+
+- ✅ **CoinGecko API** integration (300+ cryptocurrencies)
+- ✅ Real-time price updates (every 5 minutes)
+- ✅ Redis caching (5-min prices, 1-hour history)
+- ✅ Price history storage
+- ✅ Market cap, volume, and 24h change tracking
+- ✅ Search and filtering
+
+### 📡 Real-Time Updates (WebSocket)
+
+- ✅ Live price streaming via **Socket.IO**
+- ✅ Subscription-based updates (subscribe to specific symbols)
+- ✅ Portfolio value updates
+- ✅ Alert notifications
+- ✅ Connection management and stats
+- ✅ JWT authentication support
+
+### 🔔 Price Alerts
+
+- ✅ Set alerts for **ABOVE/BELOW** price targets
+- ✅ Automatic monitoring (every minute)
+- ✅ Alert history tracking
+- ✅ Duplicate alert prevention
+- ✅ Alert statistics
+
+### 📧 Multi-Channel Notifications
+
+- ✅ **Email** notifications (HTML templates, SMTP/Gmail/SendGrid)
+- ✅ **SMS** notifications (Twilio integration)
+- ✅ **Push** notifications (Firebase Cloud Messaging - iOS + Android)
+- ✅ **WebSocket** real-time notifications
+- ✅ Per-user notification preferences
+- ✅ Test notification endpoints
+
+### 📈 Analytics & Insights
+
+- ✅ **ROI time-series** with data points
+- ✅ **Asset allocation** breakdown
+- ✅ **Performance ranking** (top/bottom performers)
+- ✅ **Transaction history** charts
+- ✅ **Fee analytics**
+- ✅ **Dashboard summary** with aggregate metrics
+- ✅ Portfolio-specific or account-wide analytics
+
+### 🏥 Production-Ready Infrastructure
+
+- ✅ Health checks (readiness, liveness)
+- ✅ Comprehensive error handling
+- ✅ Request/response logging
+- ✅ Global exception filters
+- ✅ Response transformation interceptors
+- ✅ **Swagger/OpenAPI** documentation
+- ✅ Docker & Docker Compose setup
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
-- PostgreSQL 14+
-- Redis 7+
-- Docker & Docker Compose (optional)
+- **Node.js** 18+
+- **PostgreSQL** 14+
+- **Redis** 7+
+- **Docker** (optional but recommended)
 
 ## 🛠️ Installation
+
+### Quick Start (Recommended)
+
+The fastest way to get started is using our quick start script:
+
+```bash
+# Run the quick start script
+./quick-start.sh
+```
+
+This will:
+
+1. Create `.env` file from template
+2. Start PostgreSQL and Redis with Docker
+3. Install dependencies
+4. Run database migrations
+5. Seed initial data
+
+Then start the development server:
+
+```bash
+npm run start:dev
+```
 
 ### Using Docker (Recommended)
 
 ```bash
 # Clone the repository
-git clone https://github.com/ayevbeosa/crypto-portfolio-tracker
+git clone <your-repo-url>
 cd crypto-portfolio-tracker
 
 # Copy environment file
@@ -60,6 +157,7 @@ npm run start:dev
 ## 📚 API Documentation
 
 Once the application is running, visit:
+
 - Swagger UI: `http://localhost:3000/api/docs`
 - API: `http://localhost:3000/api/v1`
 
@@ -72,8 +170,7 @@ src/
 │   ├── decorators/
 │   ├── guards/
 │   ├── interceptors/
-│   ├── filters/
-│   └── pipes/
+│   └── filters/
 ├── modules/
 │   ├── auth/           # Authentication & authorization
 │   ├── users/          # User management
@@ -82,6 +179,7 @@ src/
 │   ├── crypto/         # Cryptocurrency data & prices
 │   ├── alerts/         # Price alerts
 │   ├── analytics/      # Portfolio analytics
+|   |–– notifications/  # Multi-channel notifications
 │   └── websocket/      # Real-time updates
 ├── database/
 │   ├── entities/       # TypeORM entities
@@ -126,12 +224,14 @@ npm run test:cov
 ## 📊 Key Endpoints
 
 ### Authentication
+
 - `POST /api/v1/auth/register` - Register new user
 - `POST /api/v1/auth/login` - Login user
 - `POST /api/v1/auth/refresh` - Refresh access token
 - `POST /api/v1/auth/logout` - Logout user
 
 ### Portfolios
+
 - `GET /api/v1/portfolios` - Get all user portfolios
 - `POST /api/v1/portfolios` - Create new portfolio
 - `GET /api/v1/portfolios/:id` - Get portfolio details
@@ -139,16 +239,19 @@ npm run test:cov
 - `DELETE /api/v1/portfolios/:id` - Delete portfolio
 
 ### Transactions
+
 - `POST /api/v1/transactions` - Add transaction
 - `GET /api/v1/transactions` - Get all transactions
 - `GET /api/v1/transactions/:id` - Get transaction details
 
 ### Crypto Prices
+
 - `GET /api/v1/crypto/prices` - Get current prices
 - `GET /api/v1/crypto/:symbol` - Get crypto details
 - `GET /api/v1/crypto/:symbol/history` - Get price history
 
 ### Analytics
+
 - `GET /api/v1/analytics/portfolio/:id` - Get portfolio analytics
 - `GET /api/v1/analytics/performance/:id` - Get performance metrics
 
@@ -157,11 +260,13 @@ npm run test:cov
 Connect to `ws://localhost:3001`
 
 ### Subscribe to price updates:
+
 ```javascript
 socket.emit('subscribe', { symbols: ['BTC', 'ETH'] });
 ```
 
 ### Receive price updates:
+
 ```javascript
 socket.on('price-update', (data) => {
   console.log(data); // { symbol: 'BTC', price: 45000, change24h: 2.5 }
@@ -184,4 +289,4 @@ MIT
 
 ## 👨‍💻 Author
 
-Your Name - [Your Email]
+Ayevbeosa Iyamu - [ayevbeosa.j@gmail.com]
