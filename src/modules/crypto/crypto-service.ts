@@ -6,9 +6,19 @@ import { Repository } from 'typeorm';
 import { CoinGeckoService } from './coin-gecko.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
-import { CACHE_KEYS } from '@/common/constants';
 import { PriceHistoryDto } from './dtos/price-history.dto';
 import { CryptoPriceDto } from './dtos/crypto-price.dto';
+
+const CACHE_KEYS = {
+  CRYPTO_PRICES: 'crypto:prices',
+  CRYPTO_DETAILS: (symbol: string) => `crypto:details:${symbol}`,
+  CRYPTO_HISTORY: (symbol: string, period: string) =>
+    `crypto:history:${symbol}:${period}`,
+  USER_PROFILE: (userId: string) => `user:profile:${userId}`,
+  PORTFOLIO: (portfolioId: string) => `portfolio:${portfolioId}`,
+  PORTFOLIO_HOLDINGS: (portfolioId: string) =>
+    `portfolio:holdings:${portfolioId}`,
+};
 
 export class CryptoService {
   private readonly logger = new Logger(CryptoService.name);
