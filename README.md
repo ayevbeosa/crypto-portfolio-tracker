@@ -11,83 +11,83 @@ A professional-grade cryptocurrency portfolio tracking system built with NestJS,
 
 ### 🔐 Authentication & Security
 
-- ✅ JWT-based authentication with **access + refresh tokens**
-- ✅ Secure password hashing with bcrypt
-- ✅ Rate limiting (100 req/min per IP)
-- ✅ Helmet security headers
-- ✅ CORS configuration
-- ✅ Request validation with class-validator
+- JWT-based authentication with **access + refresh tokens**
+- Secure password hashing with bcrypt
+- Rate limiting (100 req/min per IP)
+- Helmet security headers
+- CORS configuration
+- Request validation with class-validator
 
 ### 💼 Portfolio Management
 
-- ✅ Create and manage **multiple portfolios**
-- ✅ Track holdings across different cryptocurrencies
-- ✅ Automatic portfolio value calculations
-- ✅ Real-time profit/loss tracking
-- ✅ Portfolio summaries with ROI metrics
+- Create and manage **multiple portfolios**
+- Track holdings across different cryptocurrencies
+- Automatic portfolio value calculations
+- Real-time profit/loss tracking
+- Portfolio summaries with ROI metrics
 
 ### 💰 Transaction Tracking
 
-- ✅ Record **BUY/SELL** transactions
-- ✅ Automatic holding updates on transaction
-- ✅ Fee tracking and calculation
-- ✅ Historical transaction records
-- ✅ Profit/loss per transaction
+- Record **BUY/SELL** transactions
+- Automatic holding updates on transaction
+- Fee tracking and calculation
+- Historical transaction records
+- Profit/loss per transaction
 
 ### 📊 Cryptocurrency Data
 
-- ✅ **CoinGecko API** integration (300+ cryptocurrencies)
-- ✅ Real-time price updates (every 5 minutes)
-- ✅ Redis caching (5-min prices, 1-hour history)
-- ✅ Price history storage
-- ✅ Market cap, volume, and 24h change tracking
-- ✅ Search and filtering
+- **CoinGecko API** integration (300+ cryptocurrencies)
+- Real-time price updates (every 5 minutes)
+- Redis caching (5-min prices, 1-hour history)
+- Price history storage
+- Market cap, volume, and 24h change tracking
+- Search and filtering
 
 ### 📡 Real-Time Updates (WebSocket)
 
-- ✅ Live price streaming via **Socket.IO**
-- ✅ Subscription-based updates (subscribe to specific symbols)
-- ✅ Portfolio value updates
-- ✅ Alert notifications
-- ✅ Connection management and stats
-- ✅ JWT authentication support
+- Live price streaming via **Socket.IO**
+- Subscription-based updates (subscribe to specific symbols)
+- Portfolio value updates
+- Alert notifications
+- Connection management and stats
+- JWT authentication support
 
 ### 🔔 Price Alerts
 
-- ✅ Set alerts for **ABOVE/BELOW** price targets
-- ✅ Automatic monitoring (every minute)
-- ✅ Alert history tracking
-- ✅ Duplicate alert prevention
-- ✅ Alert statistics
+- Set alerts for **ABOVE/BELOW** price targets
+- Automatic monitoring (every minute)
+- Alert history tracking
+- Duplicate alert prevention
+- Alert statistics
 
 ### 📧 Multi-Channel Notifications
 
-- ✅ **Email** notifications (HTML templates, SMTP/Gmail/SendGrid)
-- ✅ **SMS** notifications (Twilio integration)
-- ✅ **Push** notifications (Firebase Cloud Messaging - iOS + Android)
-- ✅ **WebSocket** real-time notifications
-- ✅ Per-user notification preferences
-- ✅ Test notification endpoints
+- **Email** notifications (HTML templates, SMTP/Gmail/SendGrid)
+- **SMS** notifications (Twilio integration)
+- **Push** notifications (Firebase Cloud Messaging - iOS + Android)
+- **WebSocket** real-time notifications
+- Per-user notification preferences
+- Test notification endpoints
 
 ### 📈 Analytics & Insights
 
-- ✅ **ROI time-series** with data points
-- ✅ **Asset allocation** breakdown
-- ✅ **Performance ranking** (top/bottom performers)
-- ✅ **Transaction history** charts
-- ✅ **Fee analytics**
-- ✅ **Dashboard summary** with aggregate metrics
-- ✅ Portfolio-specific or account-wide analytics
+- **ROI time-series** with data points
+- **Asset allocation** breakdown
+- **Performance ranking** (top/bottom performers)
+- **Transaction history** charts
+- **Fee analytics**
+- **Dashboard summary** with aggregate metrics
+- Portfolio-specific or account-wide analytics
 
 ### 🏥 Production-Ready Infrastructure
 
-- ✅ Health checks (readiness, liveness)
-- ✅ Comprehensive error handling
-- ✅ Request/response logging
-- ✅ Global exception filters
-- ✅ Response transformation interceptors
-- ✅ **Swagger/OpenAPI** documentation
-- ✅ Docker & Docker Compose setup
+- Health checks (readiness, liveness)
+- Comprehensive error handling
+- Request/response logging
+- Global exception filters
+- Response transformation interceptors
+- **Swagger/OpenAPI** documentation
+- Docker & Docker Compose setup
 
 ## 📋 Prerequisites
 
